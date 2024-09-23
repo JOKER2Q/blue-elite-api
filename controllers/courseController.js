@@ -3,6 +3,8 @@ const multer = require("multer");
 const logActivity = require("../middlewares/activityLogger");
 const fs = require("fs");
 const path = require("path");
+const apiFeatures = require("../utils/apiFeatures");
+
 //file handle
 
 const fileError = (message) => {
@@ -60,7 +62,12 @@ const uploadMedia = upload.single("photo"); // Only allow one photo
 // Get all courses
 const allCourses = async (req, res) => {
   try {
-    const courses = await Course.find();
+    const features = new apiFeatures(Course.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const courses = await features.query;
     res.status(200).json({
       numOfCourses: courses.length,
       courses,
