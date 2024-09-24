@@ -11,6 +11,7 @@ const connection = require("./db");
 const projectRouter = require("./routes/projectRouter");
 const courseRouter = require("./routes/courseRouter");
 const activityRouter = require("./routes/activityRouter");
+const emailRouter = require("./routes/emailRouter");
 //MIDDLEWARES
 app.use(cors()); // This allows all origins
 
@@ -25,6 +26,7 @@ connection(); //DB connection
 app.use("/api/projects", projectRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/activity", activityRouter);
+app.use("/api/email", emailRouter);
 app.use("/api/users", userRouter);
 
 app.listen(8000, () => {
