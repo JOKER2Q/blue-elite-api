@@ -14,7 +14,8 @@ const upload = multer({
 // Route to handle email sending with an attachment
 router.post("/send", upload.single("file"), async (req, res) => {
   const { from, subject, body } = req.body;
-  const file = req.file;
+
+  const file = req.file && req.file;
 
   try {
     // Use the service to send the email

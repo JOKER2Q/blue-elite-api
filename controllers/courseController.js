@@ -94,7 +94,7 @@ const createCourse = async (req, res) => {
       req.user._id,
       "CREATE",
       newCourse._id,
-      JSON.stringify(headlineObject),
+      newCourse.headline,
       "course"
     );
     res
@@ -165,7 +165,7 @@ const updateCourse = async (req, res) => {
       req.user._id,
       "UPDATE",
       courseId,
-      JSON.stringify(headlineObject),
+      updatedCourse.headline,
       "course"
     );
     res.status(200).json({ course: updatedCourse });
@@ -211,7 +211,7 @@ const deleteCourse = async (req, res) => {
       req.user._id,
       "DELETE",
       deletedCourse._id,
-      JSON.stringify(headlineObject),
+      deletedCourse.headline,
       "project"
     );
 
