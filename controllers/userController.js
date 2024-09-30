@@ -53,14 +53,13 @@ const createUser = async (req, res) => {
     });
 
     await newUser.save();
+    const message = {
+      english: `Created user with the username: ${newUser.username} as an ${newUser.role}`,
+      arabic: `تم إنشاء مستخدم باسم المستخدم: ${newUser.username} كـ ${newUser.role}`,
+      kurdish: `Bikaranîna kesekî bi navê bikaranîna: ${newUser.username} wekî ${newUser.role} hate afirandin`,
+    };
     // Log the activity
-    await logActivity(
-      req.user._id,
-      "CREATE",
-      newUser._id,
-      `Created user with the username: ${newUser.username} as an ${newUser.role}`,
-      "user"
-    );
+    await logActivity(req.user._id, "CREATE", newUser._id, message, "user");
     res.status(201).json(newUser); // Respond with the created user
   } catch (err) {
     console.error(err);
@@ -76,13 +75,12 @@ const deleteUser = async (req, res) => {
       return res.status(404).send("User not found.");
     }
     // Log the activity
-    await logActivity(
-      req.user._id,
-      "DELETE",
-      deletedUser._id,
-      `Deleted ${deletedUser.username}`,
-      "user"
-    );
+    const message = {
+      english: `Created user with the username: ${deletedUser.username} as an ${deletedUser.role}`,
+      arabic: `تم إنشاء مستخدم باسم المستخدم: ${deletedUser.username} كـ ${deletedUser.role}`,
+      kurdish: `Bikaranîna kesekî bi navê bikaranîna: ${deletedUser.username} wekî ${deletedUser.role} hate afirandin`,
+    };
+    await logActivity(req.user._id, "DELETE", deletedUser._id, message, "user");
     res.status(200).send("User deleted successfully.");
   } catch (err) {
     console.error(err);
