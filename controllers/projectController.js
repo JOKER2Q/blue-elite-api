@@ -115,7 +115,7 @@ const createProject = async (req, res) => {
       req.user._id,
       "CREATE",
       newProject._id,
-      `${newProject.headline}`,
+      newProject.headline,
       "project"
     );
     // Send a successful response
@@ -175,7 +175,7 @@ const updateProject = async (req, res) => {
       }
     );
     // Convert Map to an object
- 
+
     // Log the activity
 
     await logActivity(
@@ -228,7 +228,7 @@ const deleteProject = async (req, res) => {
       req.user._id,
       "DELETE",
       deletedProject._id,
-      `${deletedProject.headline}`,
+      deletedProject.headline,
       "project"
     );
 

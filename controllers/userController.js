@@ -76,9 +76,9 @@ const deleteUser = async (req, res) => {
     }
     // Log the activity
     const message = {
-      english: `Created user with the username: ${deletedUser.username} as an ${deletedUser.role}`,
-      arabic: `تم إنشاء مستخدم باسم المستخدم: ${deletedUser.username} كـ ${deletedUser.role}`,
-      kurdish: `Bikaranîna kesekî bi navê bikaranîna: ${deletedUser.username} wekî ${deletedUser.role} hate afirandin`,
+      english: `Deleted user with the username: ${deletedUser.username} `,
+      arabic: `تم حذف مستخدم باسم المستخدم: ${deletedUser.username}`,
+      kurdish: `Jêbirina kesekî bi navê bikaranîna: ${deletedUser.username} `,
     };
     await logActivity(req.user._id, "DELETE", deletedUser._id, message, "user");
     res.status(200).send("User deleted successfully.");
