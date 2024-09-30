@@ -21,7 +21,7 @@ const login = async (req, res) => {
       expiresIn: "2d",
     });
     // Respond with token
-    res.status(200).json({ token, userRole: existingUser.roles });
+    res.status(200).json({ token, userRole: existingUser.role });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
