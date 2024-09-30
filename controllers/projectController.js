@@ -62,6 +62,7 @@ const uploadMedia = upload.single("photo"); // Only allow one photo
 
 const allProjects = async (req, res) => {
   try {
+    const totalProjects = await Project.countDocuments();
     const features = new apiFeatures(Project.find(), req.query)
       .filter()
       .sort()
@@ -71,6 +72,7 @@ const allProjects = async (req, res) => {
 
     res.status(200).json({
       numOfProject: projects.length,
+      totalProjects,
       projects,
     });
   } catch (error) {
@@ -173,14 +175,14 @@ const updateProject = async (req, res) => {
       }
     );
     // Convert Map to an object
-    const headlineObject = Object.fromEntries(updatedProject.headline);
+ 
     // Log the activity
 
     await logActivity(
       req.user._id,
       "UPDATE",
       projectId,
-      JSON.stringify(headlineObject),
+      updatedProject.headline,
       "project"
     );
 
