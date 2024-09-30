@@ -5,6 +5,8 @@ const getActivityLogs = async (req, res) => {
     const logs = await ActivityLog.find()
       .populate("userId", "username")
       .sort({ timestamp: -1 });
+
+    console.log(logs)  
     res.status(200).json({
       status: "success",
       data: logs,

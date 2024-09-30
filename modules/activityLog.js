@@ -15,10 +15,12 @@ const activityLogSchema = new Schema({
   },
   target: {
     type: String, // Target could be an item ID or similar
+  
     required: false,
   },
   details: {
-    type: String,
+    type: Map,
+    of: String,
     required: false,
   },
   timestamp: {
@@ -27,7 +29,7 @@ const activityLogSchema = new Schema({
   },
   type: {
     type: String,
-    enum: ["project" , "course", "user"],
+    enum: ["project", "course", "user"],
     required: true,
   },
 });

@@ -81,7 +81,14 @@ const allCourses = async (req, res) => {
 const createCourse = async (req, res) => {
   try {
     const courseData = { ...req.body };
+    // Convert headline and summary from JSON strings to objects if necessary
+    if (typeof courseData.headline === "string") {
+      courseData.headline = JSON.parse(courseData.headline);
+    }
 
+    if (typeof courseData.summary === "string") {
+      courseData.summary = JSON.parse(courseData.summary);
+    }
     // Check if there's a file uploaded
     if (req.file) {
       courseData.photo = req.file.filename; // Store the filename in projectData
@@ -133,6 +140,15 @@ const updateCourse = async (req, res) => {
 
     if (!existingCourse) {
       return res.status(404).json({ message: "Project not found" });
+    }
+
+    // Convert headline and summary from JSON strings to objects if necessary
+    if (typeof updateData.headline === "string") {
+      updateData.headline = JSON.parse(updateData.headline);
+    }
+
+    if (typeof updateData.summary === "string") {
+      updateData.summary = JSON.parse(updateData.summary);
     }
     // If a new file is uploaded, handle the photo field
     if (req.file) {
