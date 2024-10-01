@@ -16,19 +16,26 @@ const emailRouter = require("./routes/emailRouter");
 app.use(cors()); // This allows all origins
 
 app.use(express.static(path.join(__dirname, "public")));
+// Serve static files from the React app's build folder
+app.use(express.static(path.join(__dirname, "../client/build"))); // Make sure this path is correct
 
-app.use(morgan("tiny"));
-app.use(bodyParser.json()); // Parse JSON bodies
-
-//end MIDDLEWARE
-connection(); //DB connection
 //MOUNTING
 app.use("/api/projects", projectRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/activity", activityRouter);
 app.use("/api/email", emailRouter);
 app.use("/api/users", userRouter);
+// Route to serve the index.html file for any other routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
 
-app.listen(8000, () => {
+app.use(morgan("tiny"));
+app.use(bodyParser.json()); // Parse JSON bodies
+
+//end MIDDLEWARE
+connection(); //DB connection
+
+app.listen(5050, () => {
   console.log("listening on port " + port);
 });

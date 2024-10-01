@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DB = process.env.DB.replace("<db_password>", process.env.DB_PASSWORD);
+const DB = "mongodb://localhost:27017/blueElite";
 module.exports = async function connection() {
   try {
     const connectionParams = {
@@ -12,3 +12,4 @@ module.exports = async function connection() {
     console.log(err);
   }
 };
+  
