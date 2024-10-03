@@ -2,21 +2,23 @@ const nodemailer = require("nodemailer");
 
 // Nodemailer configuration
 const transporter = nodemailer.createTransport({
-  service: "gmail", // or other service providers
+  host: "smtp.zoho.com",
+  port: 465, // Use 465 for SSL, or 587 for TLS
+  secure: true, // true for SSL, false for TLS
   auth: {
-    user: process.env.EMAIL, // Replace with your email
-    pass: process.env.EMAIL_PASSWORD, // Replace with your email password or app-specific password
+    user: process.env.EMAIL, // e.g., 'yourname@yourdomain.com'
+    pass: process.env.EMAIL_PASSWORD, // Your email password
   },
 });
-
 async function emailSend({ from, subject, body, file }) {
-  const to = "rawantemmo@gmail.com";
+  const to = "support@blue-elite.tech";
+  const senderEmail = process.env.EMAIL; // Should match the authenticated email
   if (file) {
     const mailOptions = {
-      from: "your-email@gmail.com", // Sender's email
+      from: senderEmail, // Sender's email
       to: to, // Recipient's email
       subject: "Blue Elite Tech application", // Subject of the email
-      text: `from : ${from} \n ${body}`, // Body of the email
+      text: `${body}`, // Body of the email
       attachments: [
         {
           filename: file.originalname, // Original file name
@@ -30,7 +32,7 @@ async function emailSend({ from, subject, body, file }) {
     await transporter.sendMail(mailOptions);
   } else {
     const mailOptions = {
-      from: "your-email@gmail.com", // Sender's email
+      from: senderEmail, // Sender's email
       to: to, // Recipient's email
       subject: "Blue Elite Tech service", // Subject of the email
       text: `${body}`, // Body of the email

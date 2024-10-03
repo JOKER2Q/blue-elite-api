@@ -12,4 +12,3 @@ module.exports = async function connection() {
     console.log(err);
   }
 };
-  

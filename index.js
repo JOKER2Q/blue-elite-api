@@ -15,6 +15,8 @@ const emailRouter = require("./routes/emailRouter");
 //MIDDLEWARES
 app.use(cors()); // This allows all origins
 
+app.use(morgan("tiny"));
+app.use(bodyParser.json()); // Parse JSON bodies
 app.use(express.static(path.join(__dirname, "public")));
 // Serve static files from the React app's build folder
 app.use(express.static(path.join(__dirname, "../client/build"))); // Make sure this path is correct
@@ -30,12 +32,10 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
-app.use(morgan("tiny"));
-app.use(bodyParser.json()); // Parse JSON bodies
 
 //end MIDDLEWARE
 connection(); //DB connection
 
-app.listen(5050, () => {
+app.listen(port , () => {
   console.log("listening on port " + port);
 });

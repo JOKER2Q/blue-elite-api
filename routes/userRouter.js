@@ -15,7 +15,7 @@ router
 router
   .route("/")
   .get(authenticateToken, isAdmin, userController.allUsers)
-  .post( userController.createUser);
+  .post(authenticateToken, isAdmin, userController.createUser);
 
 router
   .route("/:id")
